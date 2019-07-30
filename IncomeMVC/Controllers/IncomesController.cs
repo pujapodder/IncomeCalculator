@@ -26,10 +26,10 @@ namespace IncomeMVC.Controllers
 
         }
         [HttpPost]
-        public ActionResult AddOrEdit()
+        public ActionResult AddOrEdit(mvcIncomeModel inc)
         {
-
-            return View();
+            HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Incomes",inc).Result;
+            return RedirectToAction("Index");
 
         }
         
