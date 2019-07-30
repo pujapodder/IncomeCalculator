@@ -4,54 +4,62 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<br />
+@{
+    var total = 0;
+    foreach (var item in Model)
+    {
+        total += Convert.ToInt32(item.IncomeAmount);
+    }
+ }
+    <p i style="font-size:24px;color:brown">Your total income for this week is @total.ToString()</p>
+<br/> 
+  
+ <p>
+        <a href="@Url.Action("AddorEdit","Incomes")" class="btn btn-default"> <i style="font-size:18px;" class="fas fa-plus-circle">Add new income</i></a>
+    </p>
+    <table class="table table-striped">
+        <thead style="background-color:black; color:white;" class="table-bordered">
+            <tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IncomeID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IncomeDay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IncomeAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MonthYear)
-        </th>
-        <th></th>
-    </tr>
+                <th>
+                    Day
+                </th>
+                <th>
+                    Total Income
+                </th>
+                <th>
+                    Number of Orders
+                </th>
+                <th>
+                    Month/Year
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncomeID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncomeDay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IncomeAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MonthYear)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonthYear)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
 
-</table>
+            </tr>
+        }
+
+    </table>

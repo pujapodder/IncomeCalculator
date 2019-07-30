@@ -17,9 +17,21 @@ namespace IncomeMVC.Controllers
             HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("Incomes").Result;
             IncomeList = response.Content.ReadAsAsync<IEnumerable<mvcIncomeModel>>().Result;
             return View(IncomeList);
-
-
          
         }
+        public ActionResult AddOrEdit(int id=0)
+        {
+
+            return View(new mvcIncomeModel());
+
+        }
+        [HttpPost]
+        public ActionResult AddOrEdit()
+        {
+
+            return View();
+
+        }
+        
     }
 }
