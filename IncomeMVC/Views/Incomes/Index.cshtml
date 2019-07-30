@@ -56,7 +56,7 @@
                 <td>
                     <a href="@Url.Action("AddorEdit","Incomes", new { id = item.IncomeID })" class="btn btn-default"> <i style="font-size:18px;margin-right:2px" class="fas fa-edit">Edit</i></a>
 
-                    <a href="@Url.Action("AddorEdit","Incomes", new { id = item.IncomeID })" class="btn btn-default"> <i style="font-size:18px;margin-right:2px" class="fas fa-trash-alt">Delete</i></a>
+                    <a onclick="Delete(@item.IncomeID)" class="btn btn-default"> <i style="font-size:18px;margin-right:2px" class="fas fa-trash-alt">Delete</i></a>
                 </td>
 
             </tr>
@@ -68,8 +68,13 @@
     <script>
         $(function () {
             var successMessage = '@TempData["SuccessMessage"]'
-            if (SuccessMessage != '')
-                alertify.success(SuccessMessage);
+            if (successMessage != '')
+                alertify.success(successMessage);
         });
+    function Delete(id) {
+        alertify.confirm('Income Calculator', 'Are you sure to delte this income history?', function () {
+            window.location.href = '@Url.Action("Delete","Incomes")/' + id;
+        }, null);
+    }
     </script>
     }

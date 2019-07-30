@@ -17,11 +17,11 @@ namespace IncomeMVC.Controllers
             HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("Incomes").Result;
             IncomeList = response.Content.ReadAsAsync<IEnumerable<mvcIncomeModel>>().Result;
             return View(IncomeList);
-         
+
         }
-        public ActionResult AddOrEdit(int id=0)
+        public ActionResult AddOrEdit(int id = 0)
         {
-            if(id==0)
+            if (id == 0)
                 return View(new mvcIncomeModel());
             else
             {
@@ -33,11 +33,26 @@ namespace IncomeMVC.Controllers
         [HttpPost]
         public ActionResult AddOrEdit(mvcIncomeModel inc)
         {
-            HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Incomes",inc).Result;
-            TempData["SuccessMessage"] = "Saved Successfully";
+            if (inc.IncomeID == 0)
+            {
+                HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Incomes", inc).Result;
+                TempData["SuccessMessage"] = "Saved Successfully";
+            }
+            else
+            {
+
+                HttpResponseMessage response = GlobalVariables.WebApiClient.PutAsJsonAsync("Incomes/" + inc.IncomeID, inc).Result;
+                TempData["SuccessMessage"] = "Updated Successfully";
+            }
             return RedirectToAction("Index");
 
         }
-        
+
+        public ActionResult Delete(int id)
+        {
+            HttpResponseMessage response = GlobalVariables.WebApiClient.DeleteAsync("Incomes/" + id.ToString()).Result;
+            TempData["SuccessMessage"] = "Deleteded Successfully";
+            return RedirectToAction("Index");
+        }
     }
 }
