@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/2d7e21e1f7.js"></script>
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,7 +21,7 @@
                 </button>
                 @Html.ActionLink("Courier Income Calulator", "Index", "Income", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-      
+
         </div>
     </div>
     <div class="container body-content">
@@ -33,6 +34,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/alertify.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

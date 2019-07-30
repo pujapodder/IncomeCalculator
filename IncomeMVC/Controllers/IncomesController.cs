@@ -21,14 +21,20 @@ namespace IncomeMVC.Controllers
         }
         public ActionResult AddOrEdit(int id=0)
         {
-
-            return View(new mvcIncomeModel());
+            if(id==0)
+                return View(new mvcIncomeModel());
+            else
+            {
+                HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("Incomes/" + id.ToString()).Result;
+                return View(response.Content.ReadAsAsync<mvcIncomeModel>().Result);
+            }
 
         }
         [HttpPost]
         public ActionResult AddOrEdit(mvcIncomeModel inc)
         {
             HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Incomes",inc).Result;
+            TempData["SuccessMessage"] = "Saved Successfully";
             return RedirectToAction("Index");
 
         }
